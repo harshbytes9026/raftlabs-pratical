@@ -1,0 +1,82 @@
+{
+  "properties": [
+    {
+      "id": "1",
+      "title": "Luxury Downtown Apartment",
+      "description": "Beautiful modern apartment in the heart of downtown with stunning city views.",
+      "price": 2500,
+      "location": {
+        "address": "123 Main St, Downtown",
+        "city": "New York",
+        "state": "NY",
+        "coordinates": {
+          "latitude": 40.7128,
+          "longitude": -74.006
+        }
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800",
+        "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800"
+      ],
+      "features": [
+        "WiFi",
+        "Air Conditioning",
+        "Parking",
+        "Pool",
+        "Gym"
+      ],
+      "bedrooms": 2,
+      "bathrooms": 2,
+      "area": 1200,
+      "type": "apartment",
+      "available": true,
+      "rating": 4.8,
+      "reviews": 45
+    },
+    {
+      "id": "2",
+      "title": "Cozy Beach House",
+      "description": "Perfect beachfront property with ocean views and private beach access.",
+      "price": 3500,
+      "location": {
+        "address": "456 Ocean Drive",
+        "city": "Miami",
+        "state": "FL",
+        "coordinates": {
+          "latitude": 25.7617,
+          "longitude": -80.1918
+        }
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800",
+        "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800"
+      ],
+      "features": [
+        "Beach Access",
+        "WiFi",
+        "Kitchen",
+        "Parking",
+        "BBQ Area"
+      ],
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "area": 1800,
+      "type": "house",
+      "available": true,
+      "rating": 4.9,
+      "reviews": 62
+    }
+  ],
+  "bookings": [],
+  "users": [
+    {
+      "id": "user1750059903793",
+      "name": "Harsh Patel",
+      "email": "harsh@yopmail.com",
+      "password": "Test@123",
+      "phone": "987654321",
+      "avatar": "https://ui-avatars.com/api/?name=Harsh%20Patel&background=random",
+      "createdAt": "2025-06-16T07:45:03.793Z"
+    }
+  ]
+}
