@@ -58,7 +58,7 @@ A React Native mobile application for browsing and booking properties. Built wit
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/harshbytes9026/raftlabs-pratical
 cd property-listing-app
 ```
 
@@ -71,16 +71,14 @@ yarn install
 
 3. Start the development server:
 ```bash
-npm start
-# or
-yarn start
+npx expo
 ```
 
 4. Start the JSON Server (in a separate terminal):
 ```bash
-npm run server
+npm run start:server
 # or
-yarn server
+yarn start:server
 ```
 
 ## Running on Android Emulator
