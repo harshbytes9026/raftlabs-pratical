@@ -7,7 +7,9 @@ const getApiBaseUrl = () => {
   return ipAddress ? `http://${ipAddress}:3000` : "http://localhost:3000";
 };
 
-const API_BASE_URL = `${getApiBaseUrl()}`;
+const API_BASE_URL = __DEV__
+  ? `${getApiBaseUrl()}`
+  : "https://mock-ofld78kg6-harsh-patels-projects-03060f2f.vercel.app";
 
 interface LoginCredentials {
   email: string;

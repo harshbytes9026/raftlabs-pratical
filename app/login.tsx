@@ -74,7 +74,7 @@ export default function LoginScreen() {
           >
             <View style={tw`flex-1 px-6 py-12`}>
               {/* Header */}
-              <View style={tw`items-center mb-12`}>
+              <View style={tw`items-center mt-12 mb-12`}>
                 <Ionicons name="home" size={64} color={theme.colors.primary} />
                 <Text style={tw`text-3xl font-bold text-gray-800 mt-4`}>
                   Welcome Back
