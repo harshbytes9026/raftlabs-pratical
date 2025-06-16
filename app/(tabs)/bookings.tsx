@@ -5,11 +5,12 @@ import React, { useEffect, useState } from "react";
 import {
   FlatList,
   Image,
+  Platform,
   RefreshControl,
-  SafeAreaView,
   Text,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "twrnc";
 import { ErrorMessage } from "../../components/ErrorMessage";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
@@ -167,7 +168,11 @@ export default function BookingsScreen() {
 
   if (!user) {
     return (
-      <SafeAreaView style={tw`flex-1 bg-white`}>
+      <SafeAreaView
+        edges={["left", "right"]}
+        mode={Platform.OS === "ios" ? "padding" : "margin"}
+        style={tw`flex-1 bg-white`}
+      >
         <View style={tw`flex-1 justify-center items-center p-4`}>
           <Ionicons
             name="person-outline"
@@ -197,7 +202,11 @@ export default function BookingsScreen() {
   }
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-white`}>
+    <SafeAreaView
+      edges={["left", "right", "top"]}
+      mode={Platform.OS === "ios" ? "padding" : "margin"}
+      style={tw`flex-1 bg-white`}
+    >
       <View style={tw`bg-white py-4 px-4`}>
         <Text style={tw`text-2xl font-bold text-gray-800`}>My Bookings</Text>
         <Text style={tw`text-gray-600 mt-1`}>
@@ -207,6 +216,8 @@ export default function BookingsScreen() {
 
       <FlatList
         data={bookingsWithProperties}
+        keyboardShouldPersistTaps="always"
+        keyboardDismissMode="on-drag"
         keyExtractor={(item) => item.id}
         renderItem={renderBookingItem}
         ListEmptyComponent={renderEmptyComponent}

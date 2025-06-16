@@ -6,12 +6,13 @@ import React from "react";
 import {
   Alert,
   Image,
-  SafeAreaView,
+  Platform,
   ScrollView,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "twrnc";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 import { api } from "../../services/api";
@@ -70,7 +71,11 @@ export default function ProfileScreen() {
 
   if (!currentUser) {
     return (
-      <SafeAreaView style={tw`flex-1 bg-white`}>
+      <SafeAreaView
+        edges={["left", "right"]}
+        mode={Platform.OS === "ios" ? "padding" : "margin"}
+        style={tw`flex-1 bg-white`}
+      >
         <View style={tw`flex-1 justify-center items-center p-4`}>
           <Ionicons
             name="person-circle-outline"
@@ -95,7 +100,10 @@ export default function ProfileScreen() {
   }
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-white`}>
+    <SafeAreaView
+      mode={Platform.OS === "ios" ? "padding" : "margin"}
+      style={tw`flex-1 bg-white`}
+    >
       <ScrollView>
         <View style={tw`p-4`}>
           <View style={tw`items-center mb-6`}>
@@ -127,7 +135,11 @@ export default function ProfileScreen() {
               style={tw`flex-row items-center justify-between py-3 border-b border-gray-100`}
             >
               <Text style={tw`text-gray-700`}>Edit Profile</Text>
-              <Ionicons name="chevron-forward" size={20} color={theme.colors.grey6B} />
+              <Ionicons
+                name="chevron-forward"
+                size={20}
+                color={theme.colors.grey6B}
+              />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
@@ -136,7 +148,11 @@ export default function ProfileScreen() {
               style={tw`flex-row items-center justify-between py-3 border-b border-gray-100`}
             >
               <Text style={tw`text-gray-700`}>Change Password</Text>
-              <Ionicons name="chevron-forward" size={20} color={theme.colors.grey6B} />
+              <Ionicons
+                name="chevron-forward"
+                size={20}
+                color={theme.colors.grey6B}
+              />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
@@ -145,7 +161,11 @@ export default function ProfileScreen() {
               style={tw`flex-row items-center justify-between py-3`}
             >
               <Text style={tw`text-gray-700`}>Notification Settings</Text>
-              <Ionicons name="chevron-forward" size={20} color={theme.colors.grey6B} />
+              <Ionicons
+                name="chevron-forward"
+                size={20}
+                color={theme.colors.grey6B}
+              />
             </TouchableOpacity>
           </View>
 

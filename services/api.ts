@@ -1,6 +1,13 @@
 import { Booking, Property, User } from "@/types";
+import Constants from "expo-constants";
 
-const API_BASE_URL = "http://localhost:3001";
+const getApiBaseUrl = () => {
+  const debuggerHost = Constants.manifest2.extra?.expoGo?.debuggerHost;
+  const ipAddress = debuggerHost?.split(":")?.[0]; // '192.168.10.247'
+  return ipAddress ? `http://${ipAddress}:3000` : "http://localhost:3000";
+};
+
+const API_BASE_URL = `${getApiBaseUrl()}`;
 
 interface LoginCredentials {
   email: string;
@@ -42,7 +49,9 @@ export const api = {
   },
 
   getPropertyBookings: async (propertyId: string): Promise<Booking[]> => {
-    const response = await fetch(`${API_BASE_URL}/bookings?propertyId=${propertyId}`);
+    const response = await fetch(
+      `${API_BASE_URL}/bookings?propertyId=${propertyId}`
+    );
     if (!response.ok) throw new Error("Failed to fetch property bookings");
     return response.json();
   },
@@ -72,7 +81,9 @@ export const api = {
 
   // Authentication
   login: async (credentials: LoginCredentials): Promise<User> => {
-    const response = await fetch(`${API_BASE_URL}/users?email=${credentials.email}`);
+    const response = await fetch(
+      `${API_BASE_URL}/users?email=${credentials.email}`
+    );
     if (!response.ok) {
       throw new Error("Invalid email or password");
     }
@@ -86,7 +97,9 @@ export const api = {
 
   register: async (credentials: RegisterCredentials): Promise<User> => {
     // Check if email already exists
-    const response = await fetch(`${API_BASE_URL}/users?email=${credentials.email}`);
+    const response = await fetch(
+      `${API_BASE_URL}/users?email=${credentials.email}`
+    );
     if (!response.ok) {
       throw new Error("Registration failed");
     }
@@ -102,7 +115,9 @@ export const api = {
       email: credentials.email,
       password: credentials.password,
       phone: credentials.phone,
-      avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(credentials.name)}&background=random`,
+      avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(
+        credentials.name
+      )}&background=random`,
       createdAt: new Date().toISOString(),
     };
 

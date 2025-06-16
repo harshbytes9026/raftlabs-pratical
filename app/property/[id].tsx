@@ -7,13 +7,14 @@ import {
   Alert,
   Dimensions,
   Image,
-  SafeAreaView,
+  Platform,
   ScrollView,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "twrnc";
 import { DatePickerModal } from "../../components/DatePickerModal";
 import { ErrorMessage } from "../../components/ErrorMessage";
@@ -142,7 +143,11 @@ export default function PropertyDetailScreen() {
   }
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-white`}>
+    <SafeAreaView
+      edges={["bottom", "left", "right"]}
+      mode={Platform.OS === "ios" ? "padding" : "margin"}
+      style={tw`flex-1 bg-white`}
+    >
       <ScrollView style={tw`flex-1`} showsVerticalScrollIndicator={false}>
         {/* Image Gallery */}
         <View style={tw`relative`}>

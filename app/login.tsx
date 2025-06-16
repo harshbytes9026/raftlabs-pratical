@@ -5,14 +5,17 @@ import { router } from "expo-router";
 import React, { useState } from "react";
 import {
   Alert,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
-  SafeAreaView,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "twrnc";
 import { api } from "../services/api";
 import { useUserStore } from "../store/userStore";
@@ -54,71 +57,85 @@ export default function LoginScreen() {
   };
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-white`}>
+    <SafeAreaView
+      edges={["left", "right"]}
+      mode={Platform.OS === "ios" ? "padding" : "margin"}
+      style={tw`flex-1 bg-white`}
+    >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={tw`flex-1`}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
       >
-        <View style={tw`flex-1 px-6 justify-center`}>
-          {/* Header */}
-          <View style={tw`items-center mb-12`}>
-            <Ionicons name="home" size={64} color={theme.colors.primary} />
-            <Text style={tw`text-3xl font-bold text-gray-800 mt-4`}>
-              Welcome Back
-            </Text>
-            <Text style={tw`text-gray-600 mt-2 text-center`}>
-              Sign in to access your account and manage your bookings
-            </Text>
-          </View>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <ScrollView
+            contentContainerStyle={tw`flex-grow`}
+            keyboardShouldPersistTaps="handled"
+          >
+            <View style={tw`flex-1 px-6 py-12`}>
+              {/* Header */}
+              <View style={tw`items-center mb-12`}>
+                <Ionicons name="home" size={64} color={theme.colors.primary} />
+                <Text style={tw`text-3xl font-bold text-gray-800 mt-4`}>
+                  Welcome Back
+                </Text>
+                <Text style={tw`text-gray-600 mt-2 text-center`}>
+                  Sign in to access your account and manage your bookings
+                </Text>
+              </View>
 
-          {/* Login Form */}
-          <View style={tw`space-y-4`}>
-            <View>
-              <Text style={tw`text-gray-700 mb-2`}>Email</Text>
-              <TextInput
-                style={tw`bg-gray-100 px-4 py-3 rounded-lg text-gray-800`}
-                placeholder="Enter your email"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-                autoCapitalize="none"
-                autoComplete="email"
-              />
+              {/* Login Form */}
+              <View>
+                <View>
+                  <Text style={tw`text-gray-700 mb-2`}>Email</Text>
+                  <TextInput
+                    style={tw`bg-gray-100 px-4 py-3 rounded-lg text-gray-800`}
+                    placeholder="Enter your email"
+                    value={email}
+                    onChangeText={setEmail}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                    autoComplete="email"
+                  />
+                </View>
+
+                <View>
+                  <Text style={tw`text-gray-700 mb-2 mt-4`}>Password</Text>
+                  <TextInput
+                    style={tw`bg-gray-100 px-4 py-3 rounded-lg text-gray-800`}
+                    placeholder="Enter your password"
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry
+                    autoCapitalize="none"
+                    autoComplete="password"
+                  />
+                </View>
+
+                <TouchableOpacity
+                  style={tw`bg-blue-600 py-4 rounded-lg mt-6`}
+                  onPress={handleLogin}
+                  disabled={loginMutation.isPending}
+                >
+                  <Text
+                    style={tw`text-white text-center font-semibold text-lg`}
+                  >
+                    {loginMutation.isPending ? "Signing in..." : "Sign In"}
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={tw`mt-4`}
+                  onPress={() => router.push("/register" as any)}
+                >
+                  <Text style={tw`text-blue-600 text-center`}>
+                    Don&apos;t have an account? Sign up
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
-
-            <View>
-              <Text style={tw`text-gray-700 mb-2 mt-4`}>Password</Text>
-              <TextInput
-                style={tw`bg-gray-100 px-4 py-3 rounded-lg text-gray-800`}
-                placeholder="Enter your password"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-                autoCapitalize="none"
-                autoComplete="password"
-              />
-            </View>
-
-            <TouchableOpacity
-              style={tw`bg-blue-600 py-4 rounded-lg mt-6`}
-              onPress={handleLogin}
-              disabled={loginMutation.isPending}
-            >
-              <Text style={tw`text-white text-center font-semibold text-lg`}>
-                {loginMutation.isPending ? "Signing in..." : "Sign In"}
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={tw`mt-4`}
-              onPress={() => router.push("/register" as any)}
-            >
-              <Text style={tw`text-blue-600 text-center`}>
-                Don&apos;t have an account? Sign up
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+          </ScrollView>
+        </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

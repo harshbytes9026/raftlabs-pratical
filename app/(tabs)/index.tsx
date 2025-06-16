@@ -3,11 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useMemo } from "react";
 import {
   FlatList,
+  Platform,
   RefreshControl,
-  SafeAreaView,
+  // SafeAreaView,
   Text,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "twrnc";
 import { ErrorMessage } from "../../components/ErrorMessage";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
@@ -82,7 +84,11 @@ export default function HomeScreen() {
   );
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-white`}>
+    <SafeAreaView
+      mode={Platform.OS === "ios" ? "padding" : "margin"}
+      style={tw`flex-1 bg-white`}
+      edges={["top", "left", "right"]}
+    >
       <View style={tw`bg-white py-4`}>
         <Text style={tw`text-2xl font-bold text-gray-800 px-4 mb-4`}>
           Find Your Perfect Place
@@ -92,6 +98,8 @@ export default function HomeScreen() {
 
       <FlatList
         data={filteredProperties}
+        keyboardShouldPersistTaps="always"
+        keyboardDismissMode="on-drag"
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <PropertyCard property={item} />}
         ListEmptyComponent={renderEmptyComponent}
